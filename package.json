@@ -1,0 +1,30 @@
+{
+  "name": "bot.echobuddy.dev",
+  "version": "1.0.0",
+  "description": "Get started example for Messenger Platform",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "lint": "jshint --exclude node_modules .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tieulonglanh/Jeju-Hackathon-mapCHAT-bot.git"
+  },
+  "author": "Tieulonglanh",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "config": "^1.20.4",
+    "ejs": "^2.4.2",
+    "express": "^4.13.4",
+    "query-string": "^5.0.1",
+    "redis": "^2.8.0",
+    "request": "^2.72.0",
+    "require-dir": "^0.3.2"
+  },
+  "engines": {
+    "node": "~4.1.2"
+  }
+}

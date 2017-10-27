@@ -1,0 +1,20 @@
+{
+    "appSecret": "55e831d3d63d708cad849d52f00528a1",
+    "pageAccessToken": {
+        "403850389672441": {
+            "token":"EAARMwoYypB0BAGodgJ2ZCRxi29QbId7pySmkumBYUOp17CjBpHzqqSScMIDeZA1YlPMZAbgJe86zMVlC7UTAEBUoZBxdl3YKPZBeGCCv2xjZAlCCACjb54A1P8S3kQYV7gsRk0bDmPWAA5f2T7SQyZCy23XWZAVCLzviiUR9fxabcmJZCYKuPknzs"            
+        },
+        "1576656822613233": {
+            "token":"EAARMwoYypB0BAKlw1TffETtgHDcKGOy3DvfZB7ZARMjwu37Fh1J6960lfBs3VojfeggT8yVIaZC4ruOKx5fCenOoA0ZCcToGZAqtLcSkKK4Y3vDOjTKGJfBafzTBIFf1EDm1SjiU0bK1d7a5ELgXWzabOu5Atym50OtpTlOYAAQZDZD"            
+        }
+    },
+    "validationToken": "jejuhackathon2017",
+    "serverURL": "https://a2834b1b.ngrok.io",
+    "apiUrl": "http://api.ecobuddy.dev",
+    "apiKey": 163732,
+    "test": 0,
+    "fakeAPI": 1,
+    "badwordGiftUrl": "https://media.giphy.com/media/3o85xyklT2t8VVjxxC/giphy.gif",
+    "restartServiceImg": "https://scontent.xx.fbcdn.net/v/t34.0-12/16996861_406928239654432_1291027468_n.gif?_nc_ad=z-m&oh=6d6eddcac54e0ea4bbc1a8841dcd839b&oe=58F4A4B8",
+    "nextIcon": "https://shophub.vn/images/boticon/next.jpg"
+}
