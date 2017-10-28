@@ -334,23 +334,7 @@ module.exports = {
                                                     if(response) {
                                                         var sendMessage = "Yummy!!";
                                                         messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
-                                                            if(response) {                                                                
-                                                                var sendText = 'Do you want to pick up the order or want us to deliver it?'
-                                                                var quick_replies = [
-                                                                    {
-                                                                        "content_type": 'text',
-                                                                        "title": "Pick up",
-                                                                        "payload": commonLib.base64UrlEndcode('alldone')
-                                                                    },{
-                                                                        "content_type": 'text',
-                                                                        "title": "Deliver",
-                                                                        "payload": commonLib.base64UrlEndcode('alldone')
-                                                                    }];
-                                                                messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
-                                                                    if (response) {
-                                                                        console.log("OK Quick Reply timetoleave: " + response);
-                                                                    }
-                                                                });
+                                                            if(response) {
                                                             }
                                                         });
                                                     }
@@ -577,6 +561,24 @@ module.exports = {
 
                     redisClient.set(senderID + ":" + recipientID + ":lastChatTime", curTime, function (err, reply) {
                         console.log("Set curTime: " + reply);
+                    });
+                    break;
+                case "makeorder":
+                    var sendText = 'Do you want to pick up the order or want us to deliver it?'
+                    var quick_replies = [
+                        {
+                            "content_type": 'text',
+                            "title": "Pick up",
+                            "payload": commonLib.base64UrlEndcode('alldone')
+                        }, {
+                            "content_type": 'text',
+                            "title": "Deliver",
+                            "payload": commonLib.base64UrlEndcode('alldone')
+                        }];
+                    messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                        if (response) {
+                            console.log("makeorder postback: " + response);
+                        }
                     });
                     break;
                 default:
