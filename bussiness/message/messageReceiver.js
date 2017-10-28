@@ -691,6 +691,108 @@ module.exports = {
                 case "deliverorder":
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!");
                     break;
+                case "makeordertwice":
+                    var sendMessage = "You have eat this 3 times this week. Do you sure to buy it again?"
+                        var quick_replies = [
+                            {
+                                "content_type": 'text',
+                                "title": "Yes, buy it!",
+                                "payload": commonLib.base64UrlEndcode('makeorder')
+                            },
+                            {
+                                "content_type": 'text',
+                                "title": "No, try other...",
+                                "payload": commonLib.base64UrlEndcode('tryotherfood')
+                            }];
+                        messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
+                            if (response) {
+                                console.log("sendWelcomeMessage: " + response);
+                            }
+                        });
+                    break;
+                case "tryotherfood":
+                    var elements = [{
+                            title: "Kimchi",
+                            image_url: "https://migrationology.com/wp-content/uploads/2012/05/kim-chi.jpg",
+                            subtitle: "Chili Pickled Cabbage",
+                            buttons: [
+                                {
+                                    "type": "web_url",
+                                    "url": "https://www.maangchi.com/recipes/kimchi",
+                                    "title": "Price: $4",
+                                    "webview_height_ratio": "compact"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Order Now",
+                                    "payload": commonLib.base64UrlEndcode('makeorder')
+                                }
+                            ]
+                        },
+                        {
+                            title: "Samgyeopsal",
+                            image_url: "https://farm6.staticflickr.com/5452/7098094895_7f0fa2d4a2_z.jpg",
+                            subtitle: "Fatty slices of pork belly grilled before your nose",
+                            buttons: [
+                                {
+                                    "type": "web_url",
+                                    "url": "https://www.travelgluttons.com/eat-samgyeopsal-%EC%82%BC%EA%B2%B9%EC%82%B4/",
+                                    "title": "Price: $4",
+                                    "webview_height_ratio": "compact"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Order Now",
+                                    "payload": commonLib.base64UrlEndcode('makeorder')
+                                }
+                            ]
+                        },
+                        {
+                            title: "Pork Bulgogi",
+                            image_url: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
+                            subtitle: "Another famous Korean specialty barbecued meat is known as Bulgogi",
+                            buttons: [
+                                {
+                                    "type": "web_url",
+                                    "url": "http://crazykoreancooking.com/recipe/spicy-pork-bulgogi-spicy-marinated-pork",
+                                    "title": "Price: $6",
+                                    "webview_height_ratio": "compact"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Order Now",
+                                    "payload": commonLib.base64UrlEndcode('makeorder')
+                                }
+                            ]
+                        },
+                        {
+                            title: "Korean Barbecue",
+                            image_url: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                            subtitle: "A traditional Korean barbecue feast",
+                            buttons: [
+                                {
+                                    "type": "web_url",
+                                    "url": "https://www.maangchi.com/recipes/BBQ",
+                                    "title": "Price: $5",
+                                    "webview_height_ratio": "compact"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Order Now",
+                                    "payload": commonLib.base64UrlEndcode('makeorder')
+                                }
+                            ]
+                        }];
+                    messageSender.sendGenericMessage(senderID, recipientID, elements, function (response) {
+                        if (response) {
+                            var sendMessage = "Yummy!!";
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                }
+                            });
+                        }
+                    });
+                    break;
                 default:
                     messageSender.sendTextMessage(senderID, recipientID, "Postback called");
                     break;                    
