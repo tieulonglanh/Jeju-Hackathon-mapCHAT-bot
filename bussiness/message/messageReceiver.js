@@ -133,7 +133,7 @@ module.exports = {
                                         console.log("OK Quick Reply timetoleave: " + response);
                                     }
                                 });
-                            }, 10000);
+                            }, 5000);
                             break;
                         case 'alldone':
                             var sendText = "What's your mean of transportation to day?"
@@ -248,7 +248,7 @@ module.exports = {
                                                 });
                                             }
                                         });
-                                    }, 10000);
+                                    }, 5000);
                                 }
                             });
                             break;
@@ -343,7 +343,7 @@ module.exports = {
                                                 });
                                             }
                                         });
-                                    }, 10000);
+                                    }, 5000);
                                 }
                             });
                             break;
@@ -616,13 +616,13 @@ module.exports = {
                                                                                             console.log("GOT IT Quick Reply Send: " + response);
                                                                                         }
                                                                                     });
-                                                                                }, 10000);
+                                                                                }, 5000);
                                                                             }
                                                                         });
                                                                     }
                                                                 });
                                                             });
-                                                        }, 10000);
+                                                        }, 5000);
                                                     }
                                                 });
                                             }, 5000);   
@@ -708,13 +708,13 @@ module.exports = {
                                                                                     console.log("GOT IT Quick Reply Send: " + response);
                                                                                 }
                                                                             });
-                                                                        }, 10000);
+                                                                        }, 5000);
                                                                     }
                                                                 });
                                                             }
                                                         });
                                                     });
-                                                }, 10000);
+                                                }, 5000);
                                             }
                                         });
                                     }, 5000);
@@ -853,7 +853,7 @@ module.exports = {
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!", function(response) {
                         if(response) {
                             setTimeout(function(){
-                                var sendMessage = "Today, there are some healthy food in the market. Do you want more information about them?"
+                                var sendMessage = "Good evening! Today there are some healthy food in the market. Do you want more information about them?"
                                 var quick_replies = [
                                     {
                                         "content_type": 'text',
@@ -870,7 +870,7 @@ module.exports = {
                                         console.log("sendWelcomeMessage: " + response);
                                     }
                                 });
-                            }, 10000);
+                            }, 5000);
                         }
                     });                    
                     break;
@@ -878,7 +878,7 @@ module.exports = {
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!", function(response){
                         if(response) {
                             setTimeout(function(){
-                                var sendMessage = "Today, there are some healthy food in the market. Do you want more information about them?"
+                                var sendMessage = "Good evening! Today there are some healthy food in the market. Do you want more information about them?"
                                 var quick_replies = [
                                     {
                                         "content_type": 'text',
@@ -893,17 +893,10 @@ module.exports = {
                                 messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
                                     if (response) {
                                         console.log("sendWelcomeMessage: " + response);
-                                        setTimeout(function(){
-                                            var url = config.get('statisticImage');
-                                            messageSender.sendGiftMessage(senderID, recipientID, url, function (response) {
-                                                if (response) {
-
-                                                }
-                                            });
-                                        }, 10000);
+                                        
                                     }
                                 });
-                            }, 10000);
+                            }, 5000);
                         }
                     });
                     break;
@@ -916,12 +909,22 @@ module.exports = {
                                         var url = config.get('statisticImage');
                                         messageSender.sendGiftMessage(senderID, recipientID, url, function (response) {
                                             if (response) {
-
+                                                var serviceText = "Share your statistic to your friend";
+                                                var buttons = [{
+                                                    "type": "web_url",
+                                                    "url": 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                                                    "title": "Share Now!",
+                                                }];
+                                                messageSender.sendButtonTemplate(senderID, recipientID, serviceText, buttons, function (response) {
+                                                    if (response) {
+                                                        console.log("SEND SHARE BUTTON: " + response);
+                                                    }
+                                                });
                                             }
                                         });
                                     }
                                 });
-                            }, 10000);
+                            }, 5000);
                         }
                     });                    
                     break;
@@ -934,12 +937,22 @@ module.exports = {
                                         var url = config.get('statisticImage');
                                         messageSender.sendGiftMessage(senderID, recipientID, url, function (response) {
                                             if (response) {
-
+                                                var serviceText = "Share your statistic to your friend";
+                                                var buttons = [{
+                                                    "type": "web_url",
+                                                    "url": 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+                                                    "title": "Share Now!",
+                                                }];
+                                                messageSender.sendButtonTemplate(senderID, recipientID, serviceText, buttons, function (response) {
+                                                    if (response) {
+                                                        console.log("SEND SHARE BUTTON: " + response);
+                                                    }
+                                                });
                                             }
                                         });
                                     }
                                 });
-                            }, 10000);
+                            }, 5000);
                         }
                     });
                     break;
