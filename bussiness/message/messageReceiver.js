@@ -564,22 +564,25 @@ module.exports = {
                     });
                     break;
                 case "makeorder":
-                    var sendText = 'Do you want to pick up the order or want us to deliver it?'
-                    var quick_replies = [
-                        {
-                            "content_type": 'text',
+                    var serviceText = 'Do you want to pick up the order or want us to deliver it?'
+                    var buttons = [{
+                            "type": "postback",
                             "title": "Pick up",
-                            "payload": commonLib.base64UrlEndcode('alldone')
-                        }, {
-                            "content_type": 'text',
+                            "payload": commonLib.base64UrlEndcode("pickuporder")
+                        },{
+                            "type": "postback",
                             "title": "Deliver",
-                            "payload": commonLib.base64UrlEndcode('alldone')
+                            "payload": commonLib.base64UrlEndcode("deliverorder")
                         }];
-                    messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                    messageSender.sendButtonTemplate(senderID, recipientID, serviceText, buttons, function (response) {
                         if (response) {
-                            console.log("makeorder postback: " + response);
+                            console.log("Send ship buttons: " + response);
                         }
                     });
+                    break;
+                case "pickuporder":
+                    break;
+                case "deliverorder":
                     break;
                 default:
                     messageSender.sendTextMessage(senderID, recipientID, "Postback called");
