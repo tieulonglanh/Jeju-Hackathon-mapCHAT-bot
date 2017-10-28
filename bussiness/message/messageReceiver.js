@@ -167,7 +167,47 @@ module.exports = {
                                         var sendMessage = "It's time for lunch. What do you want to eat today?";
                                         messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                             if (response) {
-                                                
+                                                var elements = [{
+                                                    id: 100,
+                                                    name: "Kimchi",
+                                                    description: "Chili Pickled Cabbage",
+                                                    image: "https://migrationology.com/wp-content/uploads/2012/05/kim-chi.jpg",
+                                                    receipt_image: "https://migrationology.com/wp-content/uploads/2012/05/kim-chi.jpg",
+                                                    price: 3,
+                                                    url: "https://www.maangchi.com/recipes/kimchi"
+                                                },
+                                                {
+                                                    id: 101,
+                                                    name: "Samgyeopsal",
+                                                    description: "Fatty slices of pork belly grilled before your nose",
+                                                    image: "https://farm6.staticflickr.com/5452/7098094895_7f0fa2d4a2_z.jpg",
+                                                    receipt_image: "https://farm6.staticflickr.com/5452/7098094895_7f0fa2d4a2_z.jpg",
+                                                    price: 5,
+                                                    url: "https://www.travelgluttons.com/eat-samgyeopsal-%EC%82%BC%EA%B2%B9%EC%82%B4/"
+                                                },
+                                                {
+                                                    id: 102,
+                                                    name: "Pork Bulgogi",
+                                                    description: "Another famous Korean specialty barbecued meat is known as Bulgogi",
+                                                    image: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
+                                                    receipt_image: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
+                                                    price: 6,
+                                                    url: "http://crazykoreancooking.com/recipe/spicy-pork-bulgogi-spicy-marinated-pork"
+                                                },
+                                                {
+                                                    id: 103,
+                                                    name: "Korean Barbecue",
+                                                    description: "A traditional Korean barbecue feast",
+                                                    image: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                                                    receipt_image: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                                                    price: 5,
+                                                    url: "https://www.maangchi.com/recipes/BBQ"
+                                                }];
+                                                messageSender.sendGenericMessage(senderID, recipientID, elements, function(response){
+                                                    if(response) {
+                                                        messageSender.sendRestartService(senderID, recipientID);
+                                                    }
+                                                });
                                             }
                                         });
                                     }, 10000);

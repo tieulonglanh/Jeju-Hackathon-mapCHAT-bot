@@ -167,85 +167,13 @@ module.exports = {
                     },
                     {
                         id: 103,
-                        name: "Tên sản phẩm 103",
-                        description: "Mô tả sản phẩm 103",
-                        image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        receipt_image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        price: 250000,
-                        url: "http://baobinh.net/san-pham-103"
-                    },
-                    {
-                        id: 104,
-                        name: "Tên sản phẩm 05",
-                        description: "Mô tả sản phẩm 05",
-                        image: "http://dongphuclekha.com/uploads/shopping_products_gallerys/may-dong-vest-cong-so-vest-cong-so-dep-3280-2016-09-08.jpg",
-                        receipt_image: "http://dongphuclekha.com/uploads/shopping_products_gallerys/may-dong-vest-cong-so-vest-cong-so-dep-3280-2016-09-08.jpg",
-                        price: 250000,
-                        url: "http://baobinh.net/san-pham-104"
-                    },
-                    {
-                        id: 105,
-                        name: "Tên sản phẩm 06",
-                        description: "Mô tả sản phẩm 06",
-                        image: "https://h2tshop.com/media/product/549_2_3.jpg",
-                        receipt_image: "https://h2tshop.com/media/product/549_2_3.jpg",
-                        price: 150000,
-                        url: "http://baobinh.net/san-pham-105"
-                    },
-                    {
-                        id: 106,
-                        name: "Tên sản phẩm 07",
-                        description: "Mô tả sản phẩm 05",
-                        image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        receipt_image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        price: 350000,
-                        url: "http://baobinh.net/san-pham-106"
-                    },
-                    {
-                        id: 107,
-                        name: "Tên sản phẩm 08",
-                        description: "Mô tả sản phẩm 06",
-                        image: "https://h2tshop.com/media/product/855_1_1.jpg",
-                        receipt_image: "https://h2tshop.com/media/product/855_1_1.jpg",
-                        price: 250000,
-                        url: "http://baobinh.net/san-pham-107"
-                    },
-                    {
-                        id: 108,
-                        name: "Tên sản phẩm 09",
-                        description: "Mô tả sản phẩm 09",
-                        image: "http://images.songson.vn/larges/2016/2/19/vest-nam-02-1456941876.jpg",
-                        receipt_image: "http://images.songson.vn/larges/2016/2/19/vest-nam-02-1456941876.jpg",
-                        price: 150000,
-                        url: "http://baobinh.net/san-pham-108"
-                    },
-                    {
-                        id: 109,
-                        name: "Tên sản phẩm 10",
-                        description: "Mô tả sản phẩm 10",
-                        image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        receipt_image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        price: 350000,
-                        url: "http://baobinh.net/san-pham-109"
-                    },
-                    {
-                        id: 110,
-                        name: "Tên sản phẩm 110",
-                        description: "Mô tả sản phẩm 110",
-                        image: "http://thoitrangduynguyet.com/wp-content/uploads/2016/11/ao-vest-nu-khong-co-mau-trang-kem-1.jpg",
-                        receipt_image: "http://thoitrangduynguyet.com/wp-content/uploads/2016/11/ao-vest-nu-khong-co-mau-trang-kem-1.jpg",
-                        price: 450000,
-                        url: "http://baobinh.net/product-110"
-                    },
-                    {
-                        id: 111,
-                        name: "Tên category 111",
-                        description: "Mô tả category 111",
-                        image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        receipt_image: "http://suit.vn/upload/info/20847710-103.jpg",
-                        price: 150000,
-                        url: "http://baobinh.net/product-111"
-                    }
+                        name: "Korean Barbecue",
+                        description: "A traditional Korean barbecue feast",
+                        image: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                        receipt_image: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                        price: 5,
+                        url: "https://www.maangchi.com/recipes/BBQ"
+                    }                    
                 ]
             };
             fn(response);
