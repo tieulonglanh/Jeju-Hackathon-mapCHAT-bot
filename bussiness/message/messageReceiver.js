@@ -118,6 +118,7 @@ module.exports = {
                             }, 5000);
                             break;
                         case 'timetoleave':
+                            setTimeout(function(){
                             var sendText = 'Please check these: lights, switch, TV'
                                 var quick_replies = [
                                     {
@@ -130,6 +131,7 @@ module.exports = {
                                         console.log("OK Quick Reply timetoleave: " + response);
                                     }
                                 });
+                            }, 10000);
                             break;
                         case 'alldone':
                             var sendText = "What's your mean of transportation to day?"
@@ -137,19 +139,19 @@ module.exports = {
                                     {
                                         "content_type": 'text',
                                         "title": "Bike",
-                                        "payload": commonLib.base64UrlEndcode('bike')
+                                        "payload": commonLib.base64UrlEndcode('saveenergy')
                                     },{
                                         "content_type": 'text',
                                         "title": "Car",
-                                        "payload": commonLib.base64UrlEndcode('car')
+                                        "payload": commonLib.base64UrlEndcode('notsaveenergy')
                                     },{
                                         "content_type": 'text',
                                         "title": "Public",
-                                        "payload": commonLib.base64UrlEndcode('public')
+                                        "payload": commonLib.base64UrlEndcode('saveenergy')
                                     },{
                                         "content_type": 'text',
                                         "title": "Carpool",
-                                        "payload": commonLib.base64UrlEndcode('carpool')
+                                        "payload": commonLib.base64UrlEndcode('saveenergy')
                                     }];
                                 messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
                                     if (response) {
@@ -157,32 +159,23 @@ module.exports = {
                                     }
                                 });
                             break;
-                        case 'bike':
-                            var sendMessage = 'Good job';
+                        case 'saveenergy':
+                            var sendMessage = 'Good job!';
                             messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                 if (response) {
-                                    
+                                    setTimeout(function(){
+                                        var sendMessage = "It's time for lunch. What do you want to eat today?";
+                                        messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                            if (response) {
+
+                                            }
+                                        });
+                                    }, 10000);
                                 }
                             });
                             break;
-                        case 'car':
+                        case 'notsaveenergy':
                             var sendMessage = "That's ok but we should save energy!";
-                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
-                                if (response) {
-                                    
-                                }
-                            });
-                            break;
-                        case 'public':
-                            var sendMessage = 'Great!';
-                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
-                                if (response) {
-                                    
-                                }
-                            });
-                            break;
-                        case 'carpool':
-                            var sendMessage = 'Sound good!';
                             messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                 if (response) {
                                     
