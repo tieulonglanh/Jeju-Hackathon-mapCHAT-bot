@@ -356,7 +356,7 @@ module.exports = {
                     messageSender.sendGiftMessage(senderID, recipientID, url, function (response){
                         if(response) {
                             setTimeout(function () {
-                                var sendText = "Also, I found that you've just took a shower, and you used more water than yesterday. Please be mindful to use less water tormorrow.";
+                                var sendText = "I found that you've just took a shower, and you used more water than yesterday. Please be mindful to use less water tormorrow.";
                                 var quick_replies = [
                                     {
                                         "content_type": 'text',
@@ -372,7 +372,7 @@ module.exports = {
                                         console.log("GOT IT Quick Reply Send: " + response);
                                     }
                                 });
-                            }, 5000);
+                            }, 10000);
                         }
                     });
                 }
