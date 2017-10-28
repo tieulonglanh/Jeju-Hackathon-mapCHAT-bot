@@ -177,6 +177,11 @@ module.exports = {
                                                             "url":"https://www.maangchi.com/recipes/kimchi",
                                                             "title":"Price: $4",
                                                             "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
                                                         }
                                                     ]
                                                 },
@@ -190,6 +195,11 @@ module.exports = {
                                                             "url":"https://www.travelgluttons.com/eat-samgyeopsal-%EC%82%BC%EA%B2%B9%EC%82%B4/",
                                                             "title":"Price: $4",
                                                             "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
                                                         }
                                                     ]
                                                 },
@@ -203,6 +213,11 @@ module.exports = {
                                                             "url":"http://crazykoreancooking.com/recipe/spicy-pork-bulgogi-spicy-marinated-pork",
                                                             "title":"Price: $6",
                                                             "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
                                                         }
                                                     ]
                                                 },
@@ -216,6 +231,11 @@ module.exports = {
                                                             "url":"https://www.maangchi.com/recipes/BBQ",
                                                             "title":"Price: $5",
                                                             "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
                                                         }
                                                     ]
                                                 }];
@@ -239,40 +259,76 @@ module.exports = {
                                         messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                             if (response) {
                                                 var elements = [{
-                                                    id: 100,
-                                                    name: "Kimchi",
-                                                    description: "Chili Pickled Cabbage",
-                                                    image: "https://migrationology.com/wp-content/uploads/2012/05/kim-chi.jpg",
-                                                    receipt_image: "https://migrationology.com/wp-content/uploads/2012/05/kim-chi.jpg",
-                                                    price: 3,
-                                                    url: "https://www.maangchi.com/recipes/kimchi"
+                                                    title: "Kimchi",
+                                                    image_url: "https://migrationology.com/wp-content/uploads/2012/05/kim-chi.jpg",
+                                                    subtitle: "Chili Pickled Cabbage",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"https://www.maangchi.com/recipes/kimchi",
+                                                            "title":"Price: $4",
+                                                            "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                                        }
+                                                    ]
                                                 },
                                                 {
-                                                    id: 101,
-                                                    name: "Samgyeopsal",
-                                                    description: "Fatty slices of pork belly grilled before your nose",
-                                                    image: "https://farm6.staticflickr.com/5452/7098094895_7f0fa2d4a2_z.jpg",
-                                                    receipt_image: "https://farm6.staticflickr.com/5452/7098094895_7f0fa2d4a2_z.jpg",
-                                                    price: 5,
-                                                    url: "https://www.travelgluttons.com/eat-samgyeopsal-%EC%82%BC%EA%B2%B9%EC%82%B4/"
+                                                    title: "Samgyeopsal",
+                                                    image_url: "https://farm6.staticflickr.com/5452/7098094895_7f0fa2d4a2_z.jpg",
+                                                    subtitle: "Fatty slices of pork belly grilled before your nose",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"https://www.travelgluttons.com/eat-samgyeopsal-%EC%82%BC%EA%B2%B9%EC%82%B4/",
+                                                            "title":"Price: $4",
+                                                            "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                                        }
+                                                    ]
                                                 },
                                                 {
-                                                    id: 102,
-                                                    name: "Pork Bulgogi",
-                                                    description: "Another famous Korean specialty barbecued meat is known as Bulgogi",
-                                                    image: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
-                                                    receipt_image: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
-                                                    price: 6,
-                                                    url: "http://crazykoreancooking.com/recipe/spicy-pork-bulgogi-spicy-marinated-pork"
+                                                    title: "Pork Bulgogi",
+                                                    image_url: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
+                                                    subtitle: "Another famous Korean specialty barbecued meat is known as Bulgogi",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"http://crazykoreancooking.com/recipe/spicy-pork-bulgogi-spicy-marinated-pork",
+                                                            "title":"Price: $6",
+                                                            "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                                        }
+                                                    ]
                                                 },
                                                 {
-                                                    id: 103,
-                                                    name: "Korean Barbecue",
-                                                    description: "A traditional Korean barbecue feast",
-                                                    image: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
-                                                    receipt_image: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
-                                                    price: 5,
-                                                    url: "https://www.maangchi.com/recipes/BBQ"
+                                                    title: "Korean Barbecue",
+                                                    image_url: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                                                    subtitle: "A traditional Korean barbecue feast",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"https://www.maangchi.com/recipes/BBQ",
+                                                            "title":"Price: $5",
+                                                            "webview_height_ratio": "compact"
+                                                        },
+                                                        {
+                                                            "type": "postback",
+                                                            "title": "Order Now",
+                                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                                        }
+                                                    ]
                                                 }];
                                                 messageSender.sendGenericMessage(senderID, recipientID, elements, function(response){
                                                     if(response) {
@@ -356,7 +412,7 @@ module.exports = {
                                                                         messageSender.sendGiftMessage(senderID, recipientID, url, function (response){
                                                                             if(response) {
                                                                                 setTimeout(function(){
-                                                                                    var sendText = "Also, I found that you've just took a shower, and you used more water than yesterday. Please be mindful to use less water tormorrow.";
+                                                                                    var sendText = "I found that you've just took a shower, and you used more water than yesterday. Please be mindful to use less water tormorrow.";
                                                                                     var quick_replies = [
                                                                                         {
                                                                                             "content_type": 'text',
@@ -372,7 +428,7 @@ module.exports = {
                                                                                             console.log("GOT IT Quick Reply Send: " + response);
                                                                                         }
                                                                                     });
-                                                                                }, 5000);
+                                                                                }, 10000);
                                                                             }
                                                                         });
                                                                     }
@@ -428,6 +484,11 @@ module.exports = {
                                         "url":"https://www.tripadvisor.com/Attraction_Review-g297885-d550726-Reviews-Hallasan_National_Park-Jeju_Jeju_Island.html",
                                         "title":"Go Detail",
                                         "webview_height_ratio": "compact"
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "Order Now",
+                                        "payload": commonLib.base64UrlEndcode('makeorder')
                                     }
                                 ]
                             },{
@@ -440,6 +501,11 @@ module.exports = {
                                         "url":"https://www.tripadvisor.com/Attraction_Review-g297885-d1776326-Reviews-Udo-Jeju_Jeju_Island.html",
                                         "title":"Go Detail",
                                         "webview_height_ratio": "compact"
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "Order Now",
+                                        "payload": commonLib.base64UrlEndcode('makeorder')
                                     }
                                 ]
                             },{
@@ -452,6 +518,11 @@ module.exports = {
                                         "url":"https://www.tripadvisor.com/Attraction_Review-g297885-d550694-Reviews-Hamdeok_Beach-Jeju_Jeju_Island.html",
                                         "title":"Go Detail",
                                         "webview_height_ratio": "compact"
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "Order Now",
+                                        "payload": commonLib.base64UrlEndcode('makeorder')
                                     }
                                 ]
                             },{
@@ -464,6 +535,11 @@ module.exports = {
                                         "url":"https://www.tripadvisor.com/AttractionProductDetail?product=9525TRICKEYE&d=2203080&aidSuffix=xsell&partner=Viator",
                                         "title":"Go Detail",
                                         "webview_height_ratio": "compact"
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "Order Now",
+                                        "payload": commonLib.base64UrlEndcode('makeorder')
                                     }
                                 ]
                             }];
