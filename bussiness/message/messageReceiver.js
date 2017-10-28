@@ -893,6 +893,14 @@ module.exports = {
                                 messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
                                     if (response) {
                                         console.log("sendWelcomeMessage: " + response);
+                                        setTimeout(function(){
+                                            var url = config.get('statisticImage');
+                                            messageSender.sendGiftMessage(senderID, recipientID, url, function (response) {
+                                                if (response) {
+
+                                                }
+                                            });
+                                        }, 10000);
                                     }
                                 });
                             }, 10000);
@@ -902,14 +910,36 @@ module.exports = {
                 case "pickuporder2":
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!", function(response) {
                         if(response) {
-                            
+                            setTimeout(function(){
+                                messageSender.sendTextMessage(senderID, recipientID, "Hi, This is your energy report today. Please check it!", function(response) {
+                                    if(response) {                                        
+                                        var url = config.get('statisticImage');
+                                        messageSender.sendGiftMessage(senderID, recipientID, url, function (response) {
+                                            if (response) {
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }, 10000);
                         }
                     });                    
                     break;
                 case "deliverorder2":
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!", function(response){
                         if(response) {
-                            
+                            setTimeout(function(){
+                                messageSender.sendTextMessage(senderID, recipientID, "Hi, This is your energy report today. Please check it!", function(response) {
+                                    if(response) {                                        
+                                        var url = config.get('statisticImage');
+                                        messageSender.sendGiftMessage(senderID, recipientID, url, function (response) {
+                                            if (response) {
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }, 10000);
                         }
                     });
                     break;
