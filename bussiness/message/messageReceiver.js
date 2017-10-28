@@ -800,6 +800,8 @@ module.exports = {
                     });
                     redisClient.del(senderID + ":" + recipientID + ":hasVisited", function (err, reply) {
                     });
+                    redisClient.del(senderID + ":" + recipientID + ":lastSendVoiceTime", function (err, reply) {
+                    });
                     messageSender.sendWelcomeVoiceMessage(senderID, recipientID);
                     break;
                 case "restart":
