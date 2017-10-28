@@ -644,22 +644,85 @@ module.exports = {
         }else if (quickReply === undefined && messageText) {
             redisClient.get(senderID + ":" + recipientID + ":lastChatTime", function (err, reply) {
                 if (reply === null) {
-                    messageSender.sendWelcomeMessage(senderID, recipientID);
+                    messageSender.sendWelcomeVoiceMessage(senderID, recipientID);
                 } else {
                     messageSender.sendWelcomeBackMessage(senderID, recipientID);
                 }
             });
         } else if (messageAttachments) {
-            redisClient.get(senderID + ":" + recipientID + ":lastUserAction", function (err, reply) { 
-                console.log("ATTACKMENTS lastUserAction: " + reply);
-                console.log("messageAttachments: " + JSON.stringify(messageAttachments[0].payload));
-                // Xử lý khi nhận được file từ người dùng
-                var lat = messageAttachments[0].payload.coordinates.lat;
-                var long = messageAttachments[0].payload.coordinates.long;
-                if(lat && long) {
+            redisClient.get(senderID + ":" + recipientID + ":lastSendVoiceTime", function (err, reply) {
+                if(reply == null) {
+                    var sendMessage = 'Thank you for using our service! Please say "Start" to let us connect to your Smart Home devices.';
+                    messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                        if (response) {
+                            redisClient.set(senderID + ":" + recipientID + ":lastSendVoiceTime", 1, function (err, reply) {
+                                
+                            });
+                        }
+                    });
+                } else if(reply == 1) {
+                    var sendMessage = "I'm collecting data, please don't turn off or chat with me.";
+                    messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                        if (response) {
+                            var sendMessage = "Connecting...";
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                    var date = new Date();
+                                    var curTime = date.getTime();
+                                    redisClient.set(senderID + ":" + recipientID + ":lastChatTime", curTime, function (err, reply) {
+                                        console.log("Set curTime: " + reply);
+                                    });
+                                    setTimeout(function () {
+                                        var sendMessage = 'Connected sucessfully! Now I can start to help you saving energy and money.';
+                                        messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                            if (response) {
+                                                console.log("CONNECTED SUCESSFULLY: " + response);
+                                                setTimeout(function () {
+                                                    var pageToken = PAGE_ACCESS_TOKEN[recipientID].token;
+                                                    callApi.callGetInfoCallback(senderID, pageToken, function (userInfo) {
+                                                        var sendMessage = "Hi, good morning! Today the air is bad, so you'd better not open the window.";
+                                                        if (userInfo.error_code === 0) {
+                                                            sendMessage = "Hi " + userInfo.data.first_name + ", good morning! Today the air is bad, so you'd better not open the window.";
+                                                        }
+                                                        messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                                            if (response) {
+                                                                var url = config.get('rainnyWeatherImage');
+                                                                messageSender.sendGiftMessage(senderID, recipientID, url, function (response) {
+                                                                    if (response) {
+                                                                        setTimeout(function () {
+                                                                            var sendText = "I found that you've just took a shower, and you used more water than yesterday. Please be mindful to use less water tormorrow.";
+                                                                            var quick_replies = [
+                                                                                {
+                                                                                    "content_type": 'text',
+                                                                                    "title": "Thank you!",
+                                                                                    "payload": commonLib.base64UrlEndcode('gotit')
+                                                                                }, {
+                                                                                    "content_type": 'text',
+                                                                                    "title": "Remind me tormorrow!",
+                                                                                    "payload": commonLib.base64UrlEndcode('gotit')
+                                                                                }];
+                                                                            messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                                                                if (response) {
+                                                                                    console.log("GOT IT Quick Reply Send: " + response);
+                                                                                }
+                                                                            });
+                                                                        }, 10000);
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    });
+                                                }, 10000);
+                                            }
+                                        });
+                                    }, 5000);
+                                }
+                            });
+                        }
+                    });
+                } else {
                     
                 }
-            console.log("GO HẺERERERE");
             });
         }
     },
@@ -722,7 +785,8 @@ module.exports = {
             loggerLib.logMessage(senderID, recipientID, payload, postBackPayload);
             switch (postBackPayload) {
                 case "welcome":
-                    messageSender.sendWelcomeMessage(senderID, recipientID);
+//                    messageSender.sendWelcomeMessage(senderID, recipientID);
+                    messageSender.sendWelcomeMessageVoice(senderID, recipientID);
                     break;
                 default:
                     messageSender.sendTextMessage(senderID, "Postback called");
@@ -736,7 +800,7 @@ module.exports = {
                     });
                     redisClient.del(senderID + ":" + recipientID + ":hasVisited", function (err, reply) {
                     });
-                    messageSender.sendWelcomeMessage(senderID, recipientID);
+                    messageSender.sendWelcomeVoiceMessage(senderID, recipientID);
                     break;
                 case "restart":
                     messageSender.sendWelcomeBackMessage(senderID, recipientID);

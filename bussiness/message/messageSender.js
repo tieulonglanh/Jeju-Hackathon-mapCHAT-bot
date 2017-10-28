@@ -309,14 +309,14 @@ module.exports = {
 
 
             callApi.callGetInfoCallback(senderID, pageToken, function (userInfo) {
-                var sendMessage = "Hi, I'm gonna help you live live eco-friendly while saving money.";
+                var sendMessage = "Hi, I'm gonna help you live eco-friendly while saving money.";
                 if(hasVisited) {
                     sendMessage = "Hi, welcome back. I'm gonna help you live live eco-friendly while saving money.";
                 }
                 if (userInfo.error_code === 0) {
-                    sendMessage = "Hi " + userInfo.data.first_name + ", I'm gonna help you live live eco-friendly while saving money.";
+                    sendMessage = "Hi " + userInfo.data.first_name + ", I'm gonna help you live eco-friendly while saving money.";
                     if(hasVisited) {
-                        sendMessage = "Hi " + userInfo.data.first_name + ", welcome back. I'm gonna help you live live eco-friendly while saving money.";
+                        sendMessage = "Hi " + userInfo.data.first_name + ", welcome back. I'm gonna help you live eco-friendly while saving money.";
                     }
                 }
                 messageSender.sendTypingOn(senderID, recipientID);
@@ -332,6 +332,15 @@ module.exports = {
                     }
                 });
             });
+        });
+    },
+    sendWelcomeVoiceMessage: function (senderID, recipientID) {
+        var messageSender = this;
+        var sendMessage = "Hi, I'm gonna help you live eco-friendly while saving money. Please enter your voice to register to our security system.";
+        messageSender.sendTextMessage(senderID, recipientID, sendMessage, function(response){
+            if(response) {
+                console.log("sendWelcomeVoiceMessage response: " + response);
+            }
         });
     },
     sendWelcomeBackMessage: function (senderID, recipientID) {
