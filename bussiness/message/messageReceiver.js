@@ -167,7 +167,7 @@ module.exports = {
                                         var sendMessage = "It's time for lunch. What do you want to eat today?";
                                         messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                             if (response) {
-
+                                                
                                             }
                                         });
                                     }, 10000);
