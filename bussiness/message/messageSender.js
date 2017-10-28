@@ -56,7 +56,7 @@ module.exports = {
             }
         });
     },
-    sendGiftMessage: function (senderID, url, fanpageID, fn) {
+    sendGiftMessage: function (senderID, fanpageID, url, fn) {
         fanpageLib.getPageAccessTokenProccess(senderID, fanpageID, function (response) {
             var messageData = {
                 "recipient":{
@@ -304,25 +304,33 @@ module.exports = {
     },
     sendWelcomeMessage: function (senderID, recipientID) {
         var messageSender = this;
-        var pageToken = PAGE_ACCESS_TOKEN[recipientID].token;
-        
-        
-        callApi.callGetInfoCallback(senderID, pageToken, function (userInfo) {
-            var sendMessage = "Hi, Welcome to Jeju Island. I'm here to help you decide where to go and where to find the best food in Jeju.";
-            if (userInfo.error_code === 0) {
-                sendMessage = "Hi " + userInfo.data.first_name + ", Welcome to Jeju Island. I'm here to help you decide where to go and where to find the best food in Jeju.";
-            }
-            messageSender.sendTypingOn(senderID, recipientID);
-            var quick_replies = [
-                {
-                    "content_type": 'text',
-                    "title": "Ok!",
-                    "payload": commonLib.base64UrlEndcode('ok')
-                }];
-            messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
-                if (response) {
-                    console.log("sendWelcomeMessage: " + response);
+        redisClient.get(senderID + ":" + recipientID + ":hasVisited", function (err, hasVisited) {
+            var pageToken = PAGE_ACCESS_TOKEN[recipientID].token;
+
+
+            callApi.callGetInfoCallback(senderID, pageToken, function (userInfo) {
+                var sendMessage = "Hi, I'm gonna help you live live eco-friendly while saving money.";
+                if(hasVisited) {
+                    sendMessage = "Hi, welcome back. I'm gonna help you live live eco-friendly while saving money.";
                 }
+                if (userInfo.error_code === 0) {
+                    sendMessage = "Hi " + userInfo.data.first_name + ", I'm gonna help you live live eco-friendly while saving money.";
+                    if(hasVisited) {
+                        sendMessage = "Hi " + userInfo.data.first_name + ", welcome back. I'm gonna help you live live eco-friendly while saving money.";
+                    }
+                }
+                messageSender.sendTypingOn(senderID, recipientID);
+                var quick_replies = [
+                    {
+                        "content_type": 'text',
+                        "title": "Ok!",
+                        "payload": commonLib.base64UrlEndcode('ok')
+                    }];
+                messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
+                    if (response) {
+                        console.log("sendWelcomeMessage: " + response);
+                    }
+                });
             });
         });
     },
@@ -338,26 +346,33 @@ module.exports = {
                 console.log("Set curTime: " + reply);
             });
 
-            var sendMessage = "Hi, welcome back!";
+            var sendMessage = "Hi, good morning! Today the weather is quite good. You should have some out door activities.";
             if (userInfo.error_code === 0) {
-                sendMessage = "Hi " + userInfo.data.first_name + ", welcome back!";
+                sendMessage = "Hi " + userInfo.data.first_name + ", good morning! Today the weather is quite good. You should have some out door activities.";
             }
             messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                 if (response) {
-                    var serviceText = "What do you want now?";
-                    var quick_replies = [
-                        {
-                            "content_type": 'text',
-                            "title": "Thing to do",
-                            "payload": commonLib.base64UrlEndcode('activity')
-                        }, {
-                            "content_type": 'text',
-                            "title": "Where to eat",
-                            "payload": commonLib.base64UrlEndcode('food')
-                        }];
-                    messageSender.sendQuickReply(senderID, recipientID, serviceText, quick_replies, function (response) {
-                        if (response) {
-                            console.log("sendWelcomeBackMessage: " + response);
+                    var url = config.get('sunnyWeatherImage');
+                    messageSender.sendGiftMessage(senderID, recipientID, url, function (response){
+                        if(response) {
+                            setTimeout(function () {
+                                var sendText = "Also, I found that you've just took a shower, and you used more water than yesterday. Please be mindful to use less water tormorrow.";
+                                var quick_replies = [
+                                    {
+                                        "content_type": 'text',
+                                        "title": "Thank you!",
+                                        "payload": commonLib.base64UrlEndcode('gotit')
+                                    }, {
+                                        "content_type": 'text',
+                                        "title": "Remind me tormorrow!",
+                                        "payload": commonLib.base64UrlEndcode('gotit')
+                                    }];
+                                messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                    if (response) {
+                                        console.log("GOT IT Quick Reply Send: " + response);
+                                    }
+                                });
+                            }, 5000);
                         }
                     });
                 }

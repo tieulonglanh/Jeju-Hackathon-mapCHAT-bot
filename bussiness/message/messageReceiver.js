@@ -84,47 +84,140 @@ module.exports = {
             return;
         } else if (quickReply && messageText) {
             var quickReplyPayload = commonLib.base64UrlDecode(quickReply.payload);
+            console.log('RAW QUICKREPLY PAYLOAD: ' + quickReply.payload);
+            console.log('DECODED QUICKREPLY PAYLOAD: ' + quickReplyPayload);
             redisClient.get(senderID + ":" + recipientID + ":lastChatTime", function (err, timeReply) {
                 if(timeReply != null) {
-                    redisClient.get(senderID + ":" + recipientID + ":lastUserAction", function (err, reply) { 
-                        console.log("LAST USER ACTION: " + reply);
-                        switch(reply) {
-                            case "location_of_food":
-                                switch(quickReplyPayload) {
-                                    case "restart":
-                                        messageSender.sendWelcomeBackMessage(senderID, recipientID);                                
-                                        redisClient.del(senderID + ":" + recipientID + ":lastUserAction", function (err, reply) {
-
-                                        });
-                                        break;
-                                    default:
-                                        messageSender.sendLocationRequest(senderID, recipientID, quickReplyPayload);
-                                        break;
+                    switch(quickReplyPayload) {
+                        case 'gotit':
+                            setTimeout(function(){
+                                var sendText = 'When do you plan to leave home today?'
+                                var quick_replies = [
+                                    {
+                                        "content_type": 'text',
+                                        "title": "Around 7:00am",
+                                        "payload": commonLib.base64UrlEndcode('timetoleave')
+                                    }, {
+                                        "content_type": 'text',
+                                        "title": "Around 7:30am",
+                                        "payload": commonLib.base64UrlEndcode('timetoleave')
+                                    }, {
+                                        "content_type": 'text',
+                                        "title": "Around 8:00am",
+                                        "payload": commonLib.base64UrlEndcode('timetoleave')
+                                    }, {
+                                        "content_type": 'text',
+                                        "title": "Other",
+                                        "payload": commonLib.base64UrlEndcode('timetoleave')
+                                    }];
+                                messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                    if (response) {
+                                        console.log("OK Quick Reply Send: " + response);
+                                    }
+                                });
+                            }, 5000);
+                            break;
+                        case 'timetoleave':
+                            var sendText = 'Please check these: lights, switch, TV'
+                                var quick_replies = [
+                                    {
+                                        "content_type": 'text',
+                                        "title": "All Done",
+                                        "payload": commonLib.base64UrlEndcode('alldone')
+                                    }];
+                                messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                    if (response) {
+                                        console.log("OK Quick Reply timetoleave: " + response);
+                                    }
+                                });
+                            break;
+                        case 'alldone':
+                            var sendText = "What's your mean of transportation to day?"
+                                var quick_replies = [
+                                    {
+                                        "content_type": 'text',
+                                        "title": "Bike",
+                                        "payload": commonLib.base64UrlEndcode('bike')
+                                    },{
+                                        "content_type": 'text',
+                                        "title": "Car",
+                                        "payload": commonLib.base64UrlEndcode('car')
+                                    },{
+                                        "content_type": 'text',
+                                        "title": "Public",
+                                        "payload": commonLib.base64UrlEndcode('public')
+                                    },{
+                                        "content_type": 'text',
+                                        "title": "Carpool",
+                                        "payload": commonLib.base64UrlEndcode('carpool')
+                                    }];
+                                messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                    if (response) {
+                                        console.log("OK Quick Reply timetoleave: " + response);
+                                    }
+                                });
+                            break;
+                        case 'bike':
+                            var sendMessage = 'Good job';
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                    
                                 }
-                                break;
-                            case "location_of_activity":                        
-                                switch(quickReplyPayload) {
-                                    case "restart":
-                                        messageSender.sendWelcomeBackMessage(senderID, recipientID);
-                                        redisClient.del(senderID + ":" + recipientID + ":lastUserAction", function (err, reply) {
-
-                                        });
-                                        break;
-                                    default:
-                                        messageSender.sendLocationRequest(senderID, recipientID, quickReplyPayload);
-                                        break;
+                            });
+                            break;
+                        case 'car':
+                            var sendMessage = "That's ok but we should save energy!";
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                    
                                 }
-                                break;
-                            default:    
-                                console.log("QUICK REPLY PAYLOAD: " + quickReplyPayload);
-                                messageSender.sendLocationRequest(senderID, recipientID, quickReplyPayload);
-                                break;
-                        }
-                    });
-                }else{
+                            });
+                            break;
+                        case 'public':
+                            var sendMessage = 'Great!';
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                    
+                                }
+                            });
+                            break;
+                        case 'carpool':
+                            var sendMessage = 'Sound good!';
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                    
+                                }
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
                     switch(quickReplyPayload) {
                         case 'ok':
-                            var sendText = 'First, let me tell how this works. Everytime you need a recommendation, just chat with me or use the menu bellow.'
+                            var sendText = 'First, please allow me connect to your Smart Home devices.'
+                            var quick_replies = [
+                                {
+                                    "content_type": 'text',
+                                    "title": "Let's do it!",
+                                    "payload": commonLib.base64UrlEndcode('letdoit')
+                                },
+                                {
+                                    "content_type": 'text',
+                                    "title": "Not this time!",
+                                    "payload": commonLib.base64UrlEndcode('notthistime')
+                                }];
+                            messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                if (response) {
+                                    console.log("OK Quick Reply Send: " + response);
+                                }
+                            });
+                            redisClient.set(senderID + ":" + recipientID + ":hasVisited", 1, function (err, reply) {
+                                console.log("Set HAS VISITED: " + reply);
+                            });
+                            break;
+                        case 'notthistime':
+                            var sendText = 'What a pity! Please come back when you are ready.';
                             var quick_replies = [
                                 {
                                     "content_type": 'text',
@@ -133,43 +226,77 @@ module.exports = {
                                 }];
                             messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
                                 if (response) {
-                                    console.log("OK Quick Reply Send: " + response);
-                                }
-                            });
-                            break;
-                        case 'gotit':
-                            var sendText = 'Then simple send me your location and if you crave something specific, pick up from option I give you.'
-                            var quick_replies = [
-                                {
-                                    "content_type": 'text',
-                                    "title": "Let do it!",
-                                    "payload": commonLib.base64UrlEndcode('letdoit')
-                                }];
-                            messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
-                                if (response) {
                                     console.log("GOT IT Quick Reply Send: " + response);
                                 }
                             });
                             break;
                         case 'letdoit':
-                            var sendText = 'Okay, what do you want now?'
-                            var quick_replies = [
-                            {
-                                "content_type": 'text',
-                                "title": "Thing to do",
-                                "payload": commonLib.base64UrlEndcode('activity')
-                            },{
-                                "content_type": 'text',
-                                "title": "Where to eat",
-                                "payload": commonLib.base64UrlEndcode('food')
-                            }];
-                            messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                            var sendMessage = "I'm collecting data, please don't turn off or chat with me.";
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                 if (response) {
-                                    var date = new Date();
-                                    var curTime = date.getTime();
-                                    redisClient.set(senderID + ":" + recipientID + ":lastChatTime", curTime, function (err, reply) {
-                                        console.log("Set curTime: " + reply);
-                                    });
+                                    var sendMessage = "Connecting...";
+                                    messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                        if(response) {                                            
+                                            var date = new Date();
+                                            var curTime = date.getTime();
+                                            redisClient.set(senderID + ":" + recipientID + ":lastChatTime", curTime, function (err, reply) {
+                                                console.log("Set curTime: " + reply);
+                                            });
+                                            setTimeout(function() {
+                                                var sendMessage = 'Connected sucessfully! Now I can start to help you saving energy and money.';
+                                                messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                                    if (response) {
+                                                        console.log("CONNECTED SUCESSFULLY: " + response);
+                                                        setTimeout(function() {
+                                                            var pageToken = PAGE_ACCESS_TOKEN[recipientID].token;
+                                                            callApi.callGetInfoCallback(senderID, pageToken, function (userInfo) {
+                                                                var sendMessage = "Hi, good morning! Today the air is bad, so you'd better not open the window.";
+                                                                if (userInfo.error_code === 0) {
+                                                                    sendMessage = "Hi " + userInfo.data.first_name + ", good morning! Today the air is bad, so you'd better not open the window.";
+                                                                }
+                                                                messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                                                    if (response) {
+                                                                        var url = config.get('rainnyWeatherImage');
+                                                                        messageSender.sendGiftMessage(senderID, recipientID, url, function (response){
+                                                                            if(response) {
+                                                                                setTimeout(function(){
+                                                                                    var sendText = "Also, I found that you've just took a shower, and you used more water than yesterday. Please be mindful to use less water tormorrow.";
+                                                                                    var quick_replies = [
+                                                                                        {
+                                                                                            "content_type": 'text',
+                                                                                            "title": "Thank you!",
+                                                                                            "payload": commonLib.base64UrlEndcode('gotit')
+                                                                                        }, {
+                                                                                            "content_type": 'text',
+                                                                                            "title": "Remind me tormorrow!",
+                                                                                            "payload": commonLib.base64UrlEndcode('gotit')
+                                                                                        }];
+                                                                                    messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                                                                        if (response) {
+                                                                                            console.log("GOT IT Quick Reply Send: " + response);
+                                                                                        }
+                                                                                    });
+                                                                                }, 5000);
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+                                                            });
+                                                        }, 10000);
+                                                    }
+                                                });
+                                            }, 5000);   
+                                        }
+                                    });                                                                     
+                                }
+                            });
+                            break;
+                        default:
+                            var sendMessage = 'Thank you for using our service!';
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                    console.log("THANK YOU MESSAGE: " + response);
+
                                 }
                             });
                             break;
@@ -336,8 +463,10 @@ module.exports = {
 
         // The 'payload' param is a developer-defined field which is set in a postback 
         // button for Structured Messages. 
-        var payload = commonLib.base64UrlDecode(event.postback.payload);
-
+        var payload = event.postback.payload;
+        if(payload !== 'welcome') {
+            payload = commonLib.base64UrlDecode(event.postback.payload);
+        }
         console.log("Received postback for user %d and page %d with payload '%s' " +
                 "at %d", senderID, recipientID, payload, timeOfPostback);
         var date = new Date();
@@ -351,8 +480,8 @@ module.exports = {
             var queryObj = commonLib.URLToArray(query);
             loggerLib.logMessage(senderID, recipientID, payload, postBackPayload);
             switch (postBackPayload) {
-                case "shop":
-                    
+                case "welcome":
+                    messageSender.sendWelcomeMessage(senderID, recipientID);
                     break;
                 default:
                     messageSender.sendTextMessage(senderID, "Postback called");
@@ -361,6 +490,13 @@ module.exports = {
         } else {
             loggerLib.logMessage(senderID, recipientID, payload, payload);
             switch (payload) {
+                case "welcome":                    
+                    redisClient.del(senderID + ":" + recipientID + ":lastChatTime", function (err, reply) {
+                    });
+                    redisClient.del(senderID + ":" + recipientID + ":hasVisited", function (err, reply) {
+                    });
+                    messageSender.sendWelcomeMessage(senderID, recipientID);
+                    break;
                 case "restart":
                     messageSender.sendWelcomeBackMessage(senderID, recipientID);
 
@@ -369,7 +505,7 @@ module.exports = {
                     });
                     break;
                 default:
-                    messageSender.sendTextMessage(senderID, "Postback called");
+                    messageSender.sendTextMessage(senderID, recipientID, "Postback called");
                     break;                    
             }
         }
