@@ -332,7 +332,27 @@ module.exports = {
                                                 }];
                                                 messageSender.sendGenericMessage(senderID, recipientID, elements, function(response){
                                                     if(response) {
-                                                        messageSender.sendRestartService(senderID, recipientID);
+                                                        var sendMessage = "Yummy!!";
+                                                        messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                                            if(response) {                                                                
+                                                                var sendText = 'Do you want to pick up the order or want us to deliver it?'
+                                                                var quick_replies = [
+                                                                    {
+                                                                        "content_type": 'text',
+                                                                        "title": "Pick up",
+                                                                        "payload": commonLib.base64UrlEndcode('alldone')
+                                                                    },{
+                                                                        "content_type": 'text',
+                                                                        "title": "Deliver",
+                                                                        "payload": commonLib.base64UrlEndcode('alldone')
+                                                                    }];
+                                                                messageSender.sendQuickReply(senderID, recipientID, sendText, quick_replies, function (response) {
+                                                                    if (response) {
+                                                                        console.log("OK Quick Reply timetoleave: " + response);
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
                                                     }
                                                 });
                                             }
@@ -471,124 +491,7 @@ module.exports = {
                 var lat = messageAttachments[0].payload.coordinates.lat;
                 var long = messageAttachments[0].payload.coordinates.long;
                 if(lat && long) {
-                    var elements = [];
-                    switch(reply) {
-                        case "location_of_activity":
-                            elements = [{
-                                title: "Hallasan National Park",
-                                image_url: "https://media-cdn.tripadvisor.com/media/photo-s/01/0b/8e/5a/a-rock.jpg",
-                                subtitle: "Forests, Mountains, National Parks, Nature & Parks",
-                                buttons: [
-                                    {
-                                        "type":"web_url",
-                                        "url":"https://www.tripadvisor.com/Attraction_Review-g297885-d550726-Reviews-Hallasan_National_Park-Jeju_Jeju_Island.html",
-                                        "title":"Go Detail",
-                                        "webview_height_ratio": "compact"
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "Order Now",
-                                        "payload": commonLib.base64UrlEndcode('makeorder')
-                                    }
-                                ]
-                            },{
-                                title: "Udo",
-                                image_url: "https://media-cdn.tripadvisor.com/media/photo-s/02/1f/c8/9e/farms-on-the-island.jpg",
-                                subtitle: "Island",
-                                buttons: [
-                                    {
-                                        "type":"web_url",
-                                        "url":"https://www.tripadvisor.com/Attraction_Review-g297885-d1776326-Reviews-Udo-Jeju_Jeju_Island.html",
-                                        "title":"Go Detail",
-                                        "webview_height_ratio": "compact"
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "Order Now",
-                                        "payload": commonLib.base64UrlEndcode('makeorder')
-                                    }
-                                ]
-                            },{
-                                title: "Hamdeok Beach",
-                                image_url: "https://media-cdn.tripadvisor.com/media/photo-o/0e/51/84/6d/photo0jpg.jpg",
-                                subtitle: "Beaches, Nature & Parks, Outdoor Activities",
-                                buttons: [
-                                    {
-                                        "type":"web_url",
-                                        "url":"https://www.tripadvisor.com/Attraction_Review-g297885-d550694-Reviews-Hamdeok_Beach-Jeju_Jeju_Island.html",
-                                        "title":"Go Detail",
-                                        "webview_height_ratio": "compact"
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "Order Now",
-                                        "payload": commonLib.base64UrlEndcode('makeorder')
-                                    }
-                                ]
-                            },{
-                                title: "Trick Eye Museum Entrance Ticket",
-                                image_url: "https://cache-graphicslib.viator.com/graphicslib/thumbs674x446/9525/SITours/trick-eye-museum-entrance-ticket-in-seoul-207352.jpg",
-                                subtitle: "Trick Eye Museum entrance ticket including Ice Museum",
-                                buttons: [
-                                    {
-                                        "type":"web_url",
-                                        "url":"https://www.tripadvisor.com/AttractionProductDetail?product=9525TRICKEYE&d=2203080&aidSuffix=xsell&partner=Viator",
-                                        "title":"Go Detail",
-                                        "webview_height_ratio": "compact"
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "Order Now",
-                                        "payload": commonLib.base64UrlEndcode('makeorder')
-                                    }
-                                ]
-                            }];
-                            break;
-                        case "location_of_food":
-                            elements = [{
-                                title: "Myeongjin Jeonbok ",
-                                image_url: "https://media-cdn.tripadvisor.com/media/photo-s/09/68/ba/e2/caption.jpg",
-                                subtitle: " 128, Haemajihaean-ro, Gujwa-eup, Jeju, Jeju Island 63357, South Korea",
-                                buttons: [
-                                    {
-                                        "type":"web_url",
-                                        "url":"https://www.tripadvisor.com/Restaurant_Review-g297885-d8610476-Reviews-Myeongjin_Jeonbok-Jeju_Jeju_Island.html",
-                                        "title":"Go Detail",
-                                        "webview_height_ratio": "compact"
-                                    }
-                                ]
-                            },{
-                                title: "Ujin Haejangguk",
-                                image_url: "https://media-cdn.tripadvisor.com/media/photo-s/0d/dd/79/b4/photo1jpg.jpg",
-                                subtitle: " 11, Seosa-Ro, Jeju, Jeju Island 63168, South Korea ",
-                                buttons: [
-                                    {
-                                        "type":"web_url",
-                                        "url":"https://www.tripadvisor.com/Restaurant_Review-g297885-d9230927-Reviews-Ujin_Haejangguk-Jeju_Jeju_Island.html",
-                                        "title":"Go Detail",
-                                        "webview_height_ratio": "compact"
-                                    }
-                                ]
-                            },{
-                                title: "Olrae Guksu",
-                                image_url: "https://media-cdn.tripadvisor.com/media/photo-s/07/f1/d4/89/caption.jpg",
-                                subtitle: "261-16, Yeon-dong, Jeju, Jeju Island, South Korea",
-                                buttons: [
-                                    {
-                                        "type":"web_url",
-                                        "url":"https://www.tripadvisor.com/Restaurant_Review-g297885-d4033774-Reviews-Olrae_Guksu-Jeju_Jeju_Island.html",
-                                        "title":"Go Detail",
-                                        "webview_height_ratio": "compact"
-                                    }
-                                ]
-                            }];
-                            break;
-                    }
-                    messageSender.sendGenericMessage(senderID, recipientID, elements, function(response){
-                        if(response) {
-                            messageSender.sendRestartService(senderID, recipientID);
-                        }
-                    });
+                    
                 }
             console.log("GO HẺERERERE");
             });
