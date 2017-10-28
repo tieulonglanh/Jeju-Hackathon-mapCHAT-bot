@@ -168,6 +168,77 @@ module.exports = {
                                         messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                             if (response) {
                                                 var elements = [{
+                                                    title: "Kimchi",
+                                                    image_url: "https://migrationology.com/wp-content/uploads/2012/05/kim-chi.jpg",
+                                                    subtitle: "Chili Pickled Cabbage",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"https://www.maangchi.com/recipes/kimchi",
+                                                            "title":"Price: $4",
+                                                            "webview_height_ratio": "compact"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    title: "Samgyeopsal",
+                                                    image_url: "https://farm6.staticflickr.com/5452/7098094895_7f0fa2d4a2_z.jpg",
+                                                    subtitle: "Fatty slices of pork belly grilled before your nose",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"https://www.travelgluttons.com/eat-samgyeopsal-%EC%82%BC%EA%B2%B9%EC%82%B4/",
+                                                            "title":"Price: $4",
+                                                            "webview_height_ratio": "compact"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    title: "Pork Bulgogi",
+                                                    image_url: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
+                                                    subtitle: "Another famous Korean specialty barbecued meat is known as Bulgogi",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"http://crazykoreancooking.com/recipe/spicy-pork-bulgogi-spicy-marinated-pork",
+                                                            "title":"Price: $6",
+                                                            "webview_height_ratio": "compact"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    title: "Korean Barbecue",
+                                                    image_url: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                                                    subtitle: "A traditional Korean barbecue feast",
+                                                    buttons: [
+                                                        {
+                                                            "type":"web_url",
+                                                            "url":"https://www.maangchi.com/recipes/BBQ",
+                                                            "title":"Price: $5",
+                                                            "webview_height_ratio": "compact"
+                                                        }
+                                                    ]
+                                                }];
+                                                messageSender.sendGenericMessage(senderID, recipientID, elements, function(response){
+                                                    if(response) {
+                                                        messageSender.sendRestartService(senderID, recipientID);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }, 10000);
+                                }
+                            });
+                            break;
+                        case 'notsaveenergy':
+                            var sendMessage = "That's ok but we should save energy!";
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                    setTimeout(function(){
+                                        var sendMessage = "It's time for lunch. What do you want to eat today?";
+                                        messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                            if (response) {
+                                                var elements = [{
                                                     id: 100,
                                                     name: "Kimchi",
                                                     description: "Chili Pickled Cabbage",
@@ -211,14 +282,6 @@ module.exports = {
                                             }
                                         });
                                     }, 10000);
-                                }
-                            });
-                            break;
-                        case 'notsaveenergy':
-                            var sendMessage = "That's ok but we should save energy!";
-                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
-                                if (response) {
-                                    
                                 }
                             });
                             break;
