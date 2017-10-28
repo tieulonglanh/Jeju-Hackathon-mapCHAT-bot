@@ -446,7 +446,7 @@ module.exports = {
                                         {
                                             "type": "postback",
                                             "title": "Order Now",
-                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                            "payload": commonLib.base64UrlEndcode('makeorder2')
                                         }
                                     ]
                                 },
@@ -464,7 +464,7 @@ module.exports = {
                                         {
                                             "type": "postback",
                                             "title": "Order Now",
-                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                            "payload": commonLib.base64UrlEndcode('makeorder2')
                                         }
                                     ]
                                 },
@@ -482,7 +482,7 @@ module.exports = {
                                         {
                                             "type": "postback",
                                             "title": "Order Now",
-                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                            "payload": commonLib.base64UrlEndcode('makeorder2')
                                         }
                                     ]
                                 },
@@ -500,7 +500,7 @@ module.exports = {
                                         {
                                             "type": "postback",
                                             "title": "Order Now",
-                                            "payload": commonLib.base64UrlEndcode('makeorder')
+                                            "payload": commonLib.base64UrlEndcode('makeorder2')
                                         }
                                     ]
                                 }];
@@ -762,6 +762,23 @@ module.exports = {
                         }
                     });
                     break;
+                case "makeorder2":
+                    var serviceText = 'Do you want to pick up the order or want us to deliver it?'
+                    var buttons = [{
+                            "type": "postback",
+                            "title": "Pick up",
+                            "payload": commonLib.base64UrlEndcode("pickuporder2")
+                        },{
+                            "type": "postback",
+                            "title": "Deliver",
+                            "payload": commonLib.base64UrlEndcode("deliverorder2")
+                        }];
+                    messageSender.sendButtonTemplate(senderID, recipientID, serviceText, buttons, function (response) {
+                        if (response) {
+                            console.log("Send ship buttons: " + response);
+                        }
+                    });
+                    break;
                 case "pickuporder":
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!", function(response) {
                         if(response) {
@@ -815,50 +832,14 @@ module.exports = {
                 case "pickuporder2":
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!", function(response) {
                         if(response) {
-                            setTimeout(function(){
-                                var sendMessage = "Today, there are some healthy food in the market. Do you want more information about them?"
-                                var quick_replies = [
-                                    {
-                                        "content_type": 'text',
-                                        "title": "Yes, I need",
-                                        "payload": commonLib.base64UrlEndcode('yesineed')
-                                    },
-                                    {
-                                        "content_type": 'text',
-                                        "title": "No, I don't",
-                                        "payload": commonLib.base64UrlEndcode('noidont')
-                                    }];
-                                messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
-                                    if (response) {
-                                        console.log("sendWelcomeMessage: " + response);
-                                    }
-                                });
-                            }, 10000);
+                            
                         }
                     });                    
                     break;
                 case "deliverorder2":
                     messageSender.sendTextMessage(senderID, recipientID, "Got it!", function(response){
                         if(response) {
-                            setTimeout(function(){
-                                var sendMessage = "Today, there are some healthy food in the market. Do you want more information about them?"
-                                var quick_replies = [
-                                    {
-                                        "content_type": 'text',
-                                        "title": "Yes, I need",
-                                        "payload": commonLib.base64UrlEndcode('yesineed')
-                                    },
-                                    {
-                                        "content_type": 'text',
-                                        "title": "No, I don't",
-                                        "payload": commonLib.base64UrlEndcode('noidont')
-                                    }];
-                                messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
-                                    if (response) {
-                                        console.log("sendWelcomeMessage: " + response);
-                                    }
-                                });
-                            }, 10000);
+                            
                         }
                     });
                     break;
