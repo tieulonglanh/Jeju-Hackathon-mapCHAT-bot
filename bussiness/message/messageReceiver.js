@@ -581,8 +581,24 @@ module.exports = {
                     });
                     break;
                 case "pickuporder":
+                    messageSender.sendTextMessage(senderID, recipientID, "Got it!");
+                    setTimeout(function(){
+                        var sendMessage = "Today, there are some healthy food in the market. Do you want more information about them?"
+                        var quick_replies = [
+                            {
+                                "content_type": 'text',
+                                "title": "Ok!",
+                                "payload": commonLib.base64UrlEndcode('ok')
+                            }];
+                        messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
+                            if (response) {
+                                console.log("sendWelcomeMessage: " + response);
+                            }
+                        });
+                    }, 10000);
                     break;
                 case "deliverorder":
+                    messageSender.sendTextMessage(senderID, recipientID, "Got it!");
                     break;
                 default:
                     messageSender.sendTextMessage(senderID, recipientID, "Postback called");
