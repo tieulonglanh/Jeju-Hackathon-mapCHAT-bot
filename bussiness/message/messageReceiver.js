@@ -345,6 +345,92 @@ module.exports = {
                                 }
                             });
                             break;
+                        case "yesineed":
+                            var elements = [{
+                                    title: "Bananas",
+                                    image_url: "https://www.bbcgoodfood.com/sites/default/files/guide/guide-image/2017/01/banana.jpg",
+                                    subtitle: "Fresh Bananas",
+                                    buttons: [
+                                        {
+                                            "type": "web_url",
+                                            "url": "https://www.bbcgoodfood.com/howto/guide/health-benefits-bananas",
+                                            "title": "Price: $8",
+                                            "webview_height_ratio": "compact"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Order Now",
+                                            "payload": commonLib.base64UrlEndcode('makeordertwice')
+                                        }
+                                    ]
+                                },
+                                {
+                                    title: "Bacon",
+                                    image_url: "http://thebsblog.com/wp-content/uploads/2017/07/20150727220756-bacon.jpeg",
+                                    subtitle: "Fry bacon",
+                                    buttons: [
+                                        {
+                                            "type": "web_url",
+                                            "url": "http://thebsblog.com/2017/07/18/511-hootie-concert-cop-shooting-overrating-bacon-trump-rating-negative-dave/",
+                                            "title": "Price: $8",
+                                            "webview_height_ratio": "compact"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Order Now",
+                                            "payload": commonLib.base64UrlEndcode('makeordertwice')
+                                        }
+                                    ]
+                                },
+                                {
+                                    title: "Pork Bulgogi",
+                                    image_url: "https://farm8.staticflickr.com/7054/7098179791_1f31d80080_b.jpg",
+                                    subtitle: "Another famous Korean specialty barbecued meat is known as Bulgogi",
+                                    buttons: [
+                                        {
+                                            "type": "web_url",
+                                            "url": "http://crazykoreancooking.com/recipe/spicy-pork-bulgogi-spicy-marinated-pork",
+                                            "title": "Price: $6",
+                                            "webview_height_ratio": "compact"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Order Now",
+                                            "payload": commonLib.base64UrlEndcode('makeordertwice')
+                                        }
+                                    ]
+                                },
+                                {
+                                    title: "Korean Barbecue",
+                                    image_url: "https://farm8.staticflickr.com/7107/6952029056_4ebc4a39b0_z.jpg",
+                                    subtitle: "A traditional Korean barbecue feast",
+                                    buttons: [
+                                        {
+                                            "type": "web_url",
+                                            "url": "https://www.maangchi.com/recipes/BBQ",
+                                            "title": "Price: $5",
+                                            "webview_height_ratio": "compact"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Order Now",
+                                            "payload": commonLib.base64UrlEndcode('makeordertwice')
+                                        }
+                                    ]
+                                }];
+                            messageSender.sendGenericMessage(senderID, recipientID, elements, function (response) {
+                                if (response) {
+                                    
+                                }
+                            });
+                            break;
+                        case "noidont":
+                            var sendMessage = "Ok, Thanks!";
+                            messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
+                                if (response) {
+                                }
+                            });
+                            break;
                         default:
                             break;
                     }
@@ -587,8 +673,13 @@ module.exports = {
                         var quick_replies = [
                             {
                                 "content_type": 'text',
-                                "title": "Ok!",
-                                "payload": commonLib.base64UrlEndcode('ok')
+                                "title": "Yes, I need",
+                                "payload": commonLib.base64UrlEndcode('yesineed')
+                            },
+                            {
+                                "content_type": 'text',
+                                "title": "No, I don't",
+                                "payload": commonLib.base64UrlEndcode('noidont')
                             }];
                         messageSender.sendQuickReply(senderID, recipientID, sendMessage, quick_replies, function (response) {
                             if (response) {
