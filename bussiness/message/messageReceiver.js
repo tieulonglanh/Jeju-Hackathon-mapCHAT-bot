@@ -40,7 +40,9 @@ module.exports = {
 
         // When an authentication is received, we'll send a message back to the sender
         // to let them know it was successful.
-        messageSender.sendTextMessage(senderID, "Authentication successful");
+        messageSender.sendTextMessage(senderID, recipientID, "Authentication successful", function(response){
+            
+        });
     },
     
     /*
@@ -786,10 +788,12 @@ module.exports = {
             switch (postBackPayload) {
                 case "welcome":
 //                    messageSender.sendWelcomeMessage(senderID, recipientID);
-                    messageSender.sendWelcomeMessageVoice(senderID, recipientID);
+                    messageSender.sendWelcomeVoiceMessage(senderID, recipientID);
                     break;
                 default:
-                    messageSender.sendTextMessage(senderID, "Postback called");
+                    messageSender.sendTextMessage(senderID, recipientID, "Postback called", function(response){
+                        
+                    });
                     break;
             }
         } else {
@@ -929,7 +933,9 @@ module.exports = {
                         });
                     break;                
                 default:
-                    messageSender.sendTextMessage(senderID, recipientID, "Postback called");
+                    messageSender.sendTextMessage(senderID, recipientID, "Postback called", function(response) {
+                        
+                    });
                     break;                    
             }
         }
