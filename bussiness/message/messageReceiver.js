@@ -590,9 +590,9 @@ module.exports = {
                                                         setTimeout(function() {
                                                             var pageToken = PAGE_ACCESS_TOKEN[recipientID].token;
                                                             callApi.callGetInfoCallback(senderID, pageToken, function (userInfo) {
-                                                                var sendMessage = "Hi, good morning! Today the air is bad, so you'd better not open the window.";
+                                                                var sendMessage = "Hi, good morning! Today is a sunny day, so you'd better open the windows and feel the air.";
                                                                 if (userInfo.error_code === 0) {
-                                                                    sendMessage = "Hi " + userInfo.data.first_name + ", good morning! Today the air is bad, so you'd better not open the window.";
+                                                                    sendMessage = "Hi " + userInfo.data.first_name + ", good morning! Today is a sunny day, so you'd better open the windows and feel the air.";
                                                                 }
                                                                 messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                                                     if (response) {
@@ -682,9 +682,9 @@ module.exports = {
                                                 setTimeout(function () {
                                                     var pageToken = PAGE_ACCESS_TOKEN[recipientID].token;
                                                     callApi.callGetInfoCallback(senderID, pageToken, function (userInfo) {
-                                                        var sendMessage = "Hi, good morning! Today the air is bad, so you'd better not open the window.";
+                                                        var sendMessage = "Hi, good morning! Today is a sunny day, so you'd better open the windows and feel the air.";
                                                         if (userInfo.error_code === 0) {
-                                                            sendMessage = "Hi " + userInfo.data.first_name + ", good morning! Today the air is bad, so you'd better not open the window.";
+                                                            sendMessage = "Hi " + userInfo.data.first_name + ", good morning! Today is a sunny day, so you'd better open the windows and feel the air.";
                                                         }
                                                         messageSender.sendTextMessage(senderID, recipientID, sendMessage, function (response) {
                                                             if (response) {
